@@ -1,11 +1,9 @@
-TEXES := crypto.tex ementa.tex  intro.tex  malware.tex  net.tex  vpn.tex  wireless.tex
-
 # SLIDES
 main.pdf: main.tex
 	-xelatex $<
 	-xelatex $<
 
-main.tex: $(TEXES)
+main.tex: intro.tex
 
 crypto.tex: symmetric-cryto-model.png symmetric-key-encrypt.png \
 		public-key-encrypt.png
