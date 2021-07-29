@@ -1,10 +1,9 @@
 # SLIDES
-main.pdf: main.tex
-	-xelatex $<
-	-xelatex $<
+main.pdf: main.aux
+	xelatex main.tex
 
-main.tex: intro.tex
-
+main.aux: main.tex intro.tex
+	xelatex $<
 crypto.tex: symmetric-cryto-model.png symmetric-key-encrypt.png \
 		public-key-encrypt.png
 
