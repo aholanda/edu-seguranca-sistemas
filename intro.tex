@@ -1,0 +1,148 @@
+\lecturetitle{Introdução}{\course}
+\frame{\maketitle}
+
+\lecture{A segurança da informação e os aspectos físico, lógico e humano}{info}
+
+\begin{frame}{Análise da Segurança de Sistemas~\small\cite{ross2008}}
+
+  Uma boa Engenharia de Segurança de Sistemas requer a coesão de
+  4 aspectos:
+
+  \begin{description}[<+-| alert@+>]\setbeamercovered{transparent}
+    \item[Políticas:] regras a serem seguidas ou implementadas.
+    \item[Mecanismos:] ferramentas para implementar estas regras, por
+      exemplo, criptografia e controle de acesso.
+    \item[Confiabilidade:] o quanto de confiança deve ser colocado em cada mecanismo.
+    \item[Incentivo:] as pessoas devem ser incentivadas ao cumprimento das políticas
+      para garantir a confiabilidade dos mecanismos (Engenharia Social).
+  \end{description}
+\end{frame}
+
+\begin{frame}{Exemplo 1~\small\cite{ross2008}}\small
+  Um {\bf banco} possui uma gama de sistemas que exigem um alto nível de segurança:
+
+  \begin{enumerate}[<+-| alert@+>]\setbeamercovered{transparent}
+  \item O cerne das operações bancárias é o sistema de escrituração
+    contábil. Ele armazena as informações do cliente e as transações.
+    Há várias políticas, dentre elas, cada crédito deve corresponder
+    a um débito, nada pode ser apagado, em altas transações duas ou mais
+    pessoas devem autorizar, dentre outras. Os ataques normalmente ocorrem
+    internamente, 1\% dos bancários são despedidos a cada ano.
+  \item O caixa eletrônico utiliza autenticação e criptografia e está
+    sujeito a ataques externos e internos extremamente difíceis de
+    serem identificados. O uso de criptografia nos caixas ajudou a
+    estabelecer padrões criptográficos.
+  \item A internet, {\em website} ou dispositivos móveis, apesar do
+    uso de controle de acesso e criptografia, tornou um fonte de vulnerabilidade
+    através de ataques conhecidos como {\em phishing}, que são difíceis
+    de mitigar pois usam fatores psicológicos.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Exemplo 2~\small\cite{ross2008}}\small
+
+  Sistema biomédico de um {\bf hospital}:
+  
+  \begin{enumerate}[<+-| alert@+>]\setbeamercovered{transparent}
+  \item O registro do paciente não deveria estar disponível a todos os funcionários.
+    Por exemplo, ``a enfermeira de determinada Departamento Médico poderia ver os dados
+    do paciente somente para a sua especialidade e nos últimos 90 dias''.
+  \item O registro do paciente deve ser anonimizado para fins de pesquisa.
+  \item Acesso ao registro do paciente via web por médicos exige controle de acesso e
+    criptografia.
+  \item Dependência tecnológica, como por exemplo, raio-X que se deslocam via rede
+    a locais remotos tornando estes sistemas críticos, pois quaisquer ataques podem
+    causar danos que afetam o bem-estar do paciente.
+  \end{enumerate}
+  
+\end{frame}
+
+
+\begin{frame}{Segurança de Sistemas}{Propriedades Fundamentais da Informação}
+  A Engenharia de Segurança de Sistemas tenta construir sistemas e
+  estabelecer políticas de uso para garantir as seguintes propriedades
+  dos dados e informações que estes manipulam:
+
+  \begin{description}[<+-| alert@+>]\setbeamercovered{transparent}
+  \item[Confidencialidade:] limita o acesso à informação às pessoas
+    autorizadas pelo proprietário da informação;
+  \item[Integridade:] garante manutenção das características originais
+    da informação, sendo que quaisquer alterações, tais como
+    manutenção e destruição, devem ser autorizadas ou realizadas pelo
+    proprietário;
+  \item[Disponibilidade:] a informação deve estar acessível para o uso
+    legítimo, ou seja, por agentes autorizados pelo proprietário.
+  \end{description}
+  
+\end{frame}
+
+\begin{frame}{Aspectos da segurança da informação em sistemas}
+
+  \begin{description}[<+-| alert@+>]\setbeamercovered{transparent}
+  \item[Físico:] relaciona-se com o ambiente físico onde os dados
+    estão armazenados, possíveis riscos à integridade da informação
+    podem ser: incêndio, roubo da mídia de armazenamento, catástrofes
+    naturais, dentre outros.
+  \item[Lógico:] relaciona-se com o acesso não autorizado à informação
+    utilizando um sistema computacional.
+  \item[Humano:] relaciona-se com o acesso não autorizado à informação
+    utilizando pessoas com acesso autorizado.
+  \end{description}
+
+\end{frame}
+
+\begin{frame}{Mecanismos de controle}
+  
+  \begin{description}[<+-| alert@+>]\setbeamercovered{transparent}
+  \item[Autenticação] Identificação de quem é quem, para verificar se
+    a interface de gerenciamento de recursos do sistema deve ser
+    oferecida;
+
+  \item[Autorização] Verificação de quem pode o que, através do
+    controle de acesso aos recursos oferecidos por um sistema.
+
+  \item[Auditoria] Monitoramento dos registros do sistema, para 
+    detecção de anomalias e tomada de providências.
+  \end{description}
+
+\end{frame}
+
+
+\begin{frame}{Incidente de segurança}
+
+\begin{quote}\footnotesize
+{\bf O que é um incidente de segurança?}
+
+Um incidente de segurança pode ser definido como qualquer evento
+adverso, confirmado ou sob suspeita, relacionado à segurança de
+sistemas de computação ou de redes de computadores.
+
+São exemplos de incidentes de segurança:
+
+\begin{itemize}[<+-| alert@+>]\setbeamercovered{transparent}
+\item tentativas de ganhar acesso não autorizado a sistemas ou dados;
+\item ataques de negação de serviço;
+\item uso ou acesso não autorizado a um sistema;
+\item modificações em um sistema, sem o conhecimento, instruções ou consentimento prévio do dono do sistema;
+\item desrespeito à política de segurança ou à política de uso aceitável de uma empresa ou provedor de acesso.
+\end{itemize}
+
+\end{quote}
+
+\hfill Extraído de \href{http://www.cert.br/docs/certbr-faq.html\#6}{FAQ: Perguntas Freqüentes ao CERT.br}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Referência}
+
+  \begin{thebibliography}{10}
+    \beamertemplatebookbibitems
+  \bibitem[Ross, 2008]{ross2008}
+    Ross J. Anderson.
+    \newblock \href{https://www.amazon.com.br/Security-Engineering-Building-Dependable-Distributed/dp/0470068523}{``Security Engineering: A Guide to Building
+      Dependable Distributed Systems''}.
+    \newblock 2nd Edition, John Wiley \& Sons, 2008.
+
+  \end{thebibliography}
+
+\end{frame}
