@@ -1,0 +1,13 @@
+# La(TeX)
+main.aux
+main.log
+main.nav
+main.out
+main.pdf
+main.snm
+main.toc
+
+# imagens geradas
+public-key-encrypt.png
+symmetric-cryto-model.png
+symmetric-key-encrypt.png
