@@ -6,8 +6,10 @@ main.out
 main.pdf
 main.snm
 main.toc
+texput.log
 
 # imagens geradas
 public-key-encrypt.png
 symmetric-cryto-model.png
 symmetric-key-encrypt.png
+
