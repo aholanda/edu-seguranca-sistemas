@@ -1,5 +1,9 @@
 # Auditoria e Segurança de Sistemas
 
+Slides
+
+- [Introdução](https://drive.google.com/file/d/1Qq3axfpTq34R7_Gt-4IzZauUtYzZZrVn/view?usp=sharing)
+
 ## Programas
 
 - [Autopsy](https://www.autopsy.com/)
