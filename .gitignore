@@ -8,6 +8,7 @@ main.out
 main.pdf
 main.snm
 main.toc
+main.vrb
 texput.log
 
 # imagens geradas
@@ -17,3 +18,4 @@ symmetric-key-encrypt.png
 
 # temporary files
 *~
+
