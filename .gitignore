@@ -1,5 +1,7 @@
 # La(TeX)
 main.aux
+main.fls
+main.fdb_latexmk
 main.log
 main.nav
 main.out
