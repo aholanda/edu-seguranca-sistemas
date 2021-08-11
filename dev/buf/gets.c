@@ -2,7 +2,7 @@
 
 main()
 {
-	char line[128];
+	char line[8];
 
 	gets(line);
 	printf("%s\n", line);

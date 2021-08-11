@@ -2,8 +2,8 @@
 
 main()
 {
-	char line[128];
+	char line[8];
 
-	fgets(line, 128, stdin);
+	fgets(line, 8, stdin);
 	printf("%s\n", line);
 }
