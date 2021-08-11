@@ -139,7 +139,7 @@ como
    de memória, mesmo havendo concorrência.
    
    \href{https://www.rust-lang.org/pt-BR/}{Rust} é a principal linguagem
-   a implementar este mecanismo através das abstrações de {\tt borrowing\/}
+   a implementar este mecanismo através das abstrações de {\it borrowing\/}
    e {\it ownership\/}.
 \end{enumerate}
 
@@ -372,7 +372,7 @@ $res1 = pg_execute($conn, "auth",
 \begin{frame}[fragile]{}
 
 Neste caso, mesmo que caracteres de controle da linguagem SQL, tais
-como o apóstrofo ``''', sejam inseridos, estes já serão tratados de
+como o apóstrofo {\tt '}, sejam inseridos, estes já serão tratados de
 acordo com o tipo de dados esperado e não serão avaliados pelo
 analisador de consulta fora de sua categoria. 
 
@@ -392,6 +392,45 @@ analisador de consulta fora de sua categoria.
   \end{figure}
 }
 \end{frame}
+
+% \begin{frame}{Injeção de SQL pela URL}
+
+%   Injeta o comando SQL na URL de páginas dinâmicas. Exemplo:
+
+%   \begin{verbatim}
+%     https://www.exemplo.edu.br/script.php?id=12345
+%   \end{verbatim}
+
+%   \only<2> {
+%     Uso de reescrita da URL no servidor HTTP. Exemplo para o servidor 
+%     \href{https://apache.org/}{\tt apache}.
+  
+%     % NC - case insensitive
+%     \begin{verbatim}
+%       # arquivo .htaccess
+%       RewriteEngine on
+
+%       # Reescreve "script.php" para "script.html"
+%       RewriteCond "$1.php" -f
+%       RewriteCond "$1.html" !-f
+%       RewriteRule "^(.*).html$" "$1.php"
+%       RewriteRule ^about$ about.html [NC]
+%     \end{verbatim}
+%     }
+
+% \only<3> {
+%     Geração de {\it hash\/} da URL e mapeamento no servidor.
+%     Exemplo usando o algoritmo {MD5}:
+
+%     \begin{verbatim}
+%       hash(https://www.exemplo.edu.br/script.php?id=12345) = 02DE5A09606B1E9214DD8C6E7F80387C
+%     \end{verbatim}
+
+%     \begin{tabular}{l|l}\hline
+%     {\tt script.php?id=12345} & $02DE5A09606B1E9214DD8C6E7F80387C$ \\
+%     \end{tabular}\hline
+% }
+%\end{frame}
 
 \begin{frame}{Exercícios}
 
