@@ -163,7 +163,7 @@ estouro de {\it buffer\/}.
 \begin{frame}{}
 O {\it cross-site scripting\/} (XSS) é um ataque de injeção de código que
 explora a execução de código JavaScript no navegador do usuário.  A
-Figure mostra a injeção do código JavaScript
+Figura mostra a injeção do código JavaScript
 {\tt <script>alert(`xss a vista')</script>} na área de texto de um formulário
 HTML. Este formulário é processado por um script PHP que não trata ou
 valida os caracteres entrados. 
@@ -268,8 +268,10 @@ Lobo Valbuena.
 \begin{frame}[fragile]{}{Envio de SQL sem tratamento da entrada}
 
 O ataque de injeção de SQL explora o processamento dos catacteres entrados pelo usuário pelo 
- banco de dados. A <<img-sql-snd,Figura 5>> mostra um formulário que busca os dados inseridos 
-em um banco de dados PostgreSQL usando PHP. A consulta SQL feita é a seguinte:
+ banco de dados.  
+
+\pause
+A consulta SQL feita é a seguinte:
 
 {\small
 \begin{verbatim}
@@ -280,8 +282,8 @@ pg_query($conn, "SELECT * FROM login WHERE username='" .
 }
 
 onde {\tt \$\_POST[``username'']} contém os caracteres
-inseridos no campo "Username" e {\tt \$\_POST[``password´´]} os
-caracteres inseridos no campo "Password" que corresponderia à senha
+inseridos no campo ``Username'' e {\tt \$\_POST[``password'']} os
+caracteres inseridos no campo ``Password'' que corresponderia à senha
 do usuário.
 
 \end{frame}
@@ -312,7 +314,7 @@ e o script PHP retorna a mensagem de falha.
 Se injetarmos os caracteres {\tt ` OR 1=1;--} no campo ``Username'',
 
 \begin{lstlisting}[language=SQL]
-SELECT * FROM login WHERE username='' OR 1=1;-- AND password=''
+SELECT * FROM login WHERE username=`' OR 1=1;-- AND password=`'
 \end{lstlisting}
 
 esta consulta será interpretados da seguinte forma pelo banco de dados
@@ -331,8 +333,10 @@ PostgreSQL:
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{}
-  
+\begin{frame}{}\small
+A Figura mostra um formulário que busca os dados inseridos 
+em um banco de dados PostgreSQL usando PHP.
+
   \begin{figure}
     \centering
     \includegraphics[scale=.5]{img/sql-snd.png}
@@ -393,44 +397,48 @@ analisador de consulta fora de sua categoria.
 }
 \end{frame}
 
-% \begin{frame}{Injeção de SQL pela URL}
+\begin{frame}[fragile]{Injeção de SQL pela URL}\footnotesize
 
-%   Injeta o comando SQL na URL de páginas dinâmicas. Exemplo:
+  Injeta o comando SQL na URL de páginas dinâmicas. Exemplo:
 
-%   \begin{verbatim}
-%     https://www.exemplo.edu.br/script.php?id=12345
-%   \end{verbatim}
+   \begin{verbatim}
+     https://www.exemplo.edu.br/script.php?id=12345
+   \end{verbatim}
 
-%   \only<2> {
-%     Uso de reescrita da URL no servidor HTTP. Exemplo para o servidor 
-%     \href{https://apache.org/}{\tt apache}.
-  
-%     % NC - case insensitive
-%     \begin{verbatim}
-%       # arquivo .htaccess
-%       RewriteEngine on
+   \pause
 
-%       # Reescreve "script.php" para "script.html"
-%       RewriteCond "$1.php" -f
-%       RewriteCond "$1.html" !-f
-%       RewriteRule "^(.*).html$" "$1.php"
-%       RewriteRule ^about$ about.html [NC]
-%     \end{verbatim}
-%     }
+     Uso de reescrita da URL no servidor HTTP. Exemplo para o servidor 
+     \href{https://apache.org/}{\tt apache}.
 
-% \only<3> {
-%     Geração de {\it hash\/} da URL e mapeamento no servidor.
-%     Exemplo usando o algoritmo {MD5}:
+     {\scriptsize
+     \begin{verbatim}
+       # arquivo .htaccess
+       RewriteEngine on
 
-%     \begin{verbatim}
-%       hash(https://www.exemplo.edu.br/script.php?id=12345) = 02DE5A09606B1E9214DD8C6E7F80387C
-%     \end{verbatim}
+       # Reescreve "script.php" para "script.html"
+       # NC - case insensitive
+       RewriteCond "$1.php" -f
+       RewriteCond "$1.html" !-f
+       RewriteRule "^(.*).html$" "$1.php"
+       RewriteRule ^about$ about.html [NC]
+     \end{verbatim}
+     }
 
-%     \begin{tabular}{l|l}\hline
-%     {\tt script.php?id=12345} & $02DE5A09606B1E9214DD8C6E7F80387C$ \\
-%     \end{tabular}\hline
-% }
-%\end{frame}
+     \pause
+    Geração de {\it hash\/} da URL e mapeamento no servidor.
+    Exemplo usando o algoritmo {MD5}:
+
+{\scriptsize
+\begin{verbatim}
+hash(https://www.exemplo.edu.br/script.php\?id=12345) = 
+     02DE5A09606B1E9214DD8C6E7F80387C
+\end{verbatim}
+
+\begin{tabular}{l|l}\hline
+{\tt script.php?id=12345} & 02DE5A09606B1E9214DD8C6E7F80387C \\\hline
+\end{tabular}
+}
+\end{frame}
 
 \begin{frame}{Exercícios}
 
