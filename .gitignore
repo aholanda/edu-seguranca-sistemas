@@ -17,5 +17,9 @@ symmetric-cryto-model.png
 symmetric-key-encrypt.png
 
 # temporary files
+gets
+fgets
+overflow
 *~
 *.exe
+*.out
