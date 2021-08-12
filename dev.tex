@@ -141,7 +141,8 @@ como
  \pause
 \item Política de acesso: o uso das variáveis do programa obedece à
    políticas que buscam garantir a segurança no gerenciamento
-   de memória, mesmo havendo concorrência.
+   de memória, mesmo havendo concorrência. Exemplos: Rust e 
+   \href{https://vlang.io/}{V}.
    
    \href{https://www.rust-lang.org/pt-BR/}{Rust} é a principal linguagem
    a implementar este mecanismo através das abstrações de {\it borrowing\/}
@@ -176,14 +177,14 @@ estouro de {\it buffer\/}.
 O {\it cross-site scripting\/} (XSS) é um ataque de injeção de código que
 explora a execução de código JavaScript no navegador do usuário.  A
 Figura mostra a injeção do código JavaScript
-{\tt <script>alert(`xss a vista')</script>} na área de texto de um formulário
+{\tt <script>alert(`XSS a vista')</script>} na área de texto de um formulário
 HTML. Este formulário é processado por um script PHP que não trata ou
 valida os caracteres entrados. 
 
 \only<1>{
 \begin{figure}
   \centering
-  \includegraphics[scale=.5]{img/xss-snd.png}
+  \includegraphics[scale=.6]{img/xss-snd.png}
 
   \caption{Envio de JavaScript usando formulário.}
 \end{figure}
@@ -195,7 +196,7 @@ valida os caracteres entrados.
   
 \begin{figure}
   \centering
-  \includegraphics[scale=.5]{img/xss-rsp.png}
+  \includegraphics[scale=.4]{img/xss-rsp.png}
 
   \caption{Resposta do formulário após o envio do JavaScript.}
 \end{figure}
@@ -204,7 +205,8 @@ valida os caracteres entrados.
 
 \begin{frame}[fragile]{}
 
-O navegador Google Chrome tem um filtro chamado XSS {\it Auditor\/} que
+O navegador Google Chrome pode ter um filtro habilitado 
+chamado XSS {\it Auditor\/} que
 tenta mitigar a possibilidade deste tipo de ataque bloqueando os
 ataques mais comuns. Para abrir o Chrome com o filtro desabilitado,
 execute:
@@ -248,7 +250,7 @@ listar:
   
   \begin{figure}
     \centering
-    \includegraphics[scale=.5]{img/xss-fix-snd.png}
+    \includegraphics[scale=.5]{img/xss-snd.png}
     \caption{Envio de JavaScript usando formulário.}
   \end{figure}
 }
@@ -349,7 +351,7 @@ PostgreSQL:
 \item A expressão {\tt 1=1} sempre é verdadeira, tornando toda a
   avaliação até o momento verdadeira;
 \item O ponto e vírgula {\tt ;} encerra a consulta;\pause
-\item O comentário {\tt --} faz o analisador de consultas ignorar os
+\item O comentário {\tt $--$} faz o analisador de consultas ignorar os
   caracteres restantes, tornando a consulta sempre bem sucedida.
 \end{enumerate}
 \end{frame}
