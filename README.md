@@ -13,10 +13,14 @@
 
 ## Recursos e Dicas
 
+- [PostgreSQL](https://www.postgresql.org/)
+- [Tiny C Compiler](https://bellard.org/tcc/)
+
 ### Windows
 
 - [Guia de instalação do Subsistema Windows para Linux para Windows 10](https://docs.microsoft.com/pt-br/windows/wsl/install-win10)
 - Instalar o [Windows Terminal](https://www.microsoft.com/pt-br/p/windows-terminal/9n0dx20hk701)
+- [XAMPP](https://www.apachefriends.org/pt_br/index.html) (Servidor Apache + php + MySQL + Perl)
 
 ---
 [Adriano J. Holanda](https://ajholanda.github.io/)
