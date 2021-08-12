@@ -3,6 +3,7 @@
 ## Slides
 
 - [Introdução](https://drive.google.com/file/d/1Qq3axfpTq34R7_Gt-4IzZauUtYzZZrVn/view?usp=sharing)
+- [Segurança no Desenvolvimento de Sistemas](https://drive.google.com/file/d/1pcHaD-_fGyVcD9c3srtq0sixNGuN7RpH/view?usp=sharing)
 
 ## Programas
 
