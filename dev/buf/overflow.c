@@ -9,7 +9,7 @@
 */
 
 int main(int argc, char *argv[]) {
-	int value = 5;
+	int valor = 5;
 	char buffer_um[8], buffer_dois[8];
 
 	strcpy(buffer_um, "um"); /* Copia "um" para buffer_um */
@@ -17,12 +17,12 @@ int main(int argc, char *argv[]) {
 
 	printf("[ANTES] buffer_dois esta em %p e contem \'%s\'\n", buffer_dois, buffer_dois);
 	printf("[ANTES] buffer_um esta em %p e contem \'%s\'\n", buffer_um, buffer_um);
-	printf("[ANTES] buffer_um esta em %p e eh %d (0x%08x)\n", &value, value, value);
+	printf("[ANTES] valor  esta em %p e eh %d (0x%08x)\n", &valor, valor, valor);
 	
 	printf("[STRCPY] copying %ld bytes into byffer_dois\n\n", strlen(buffer_dois));
 	strcpy(buffer_dois, argv[1]);
 
 	printf("[DEPOIS] buffer_dois esta em %p e contem \'%s\'\n", buffer_dois, buffer_dois);
 	printf("[DEPOIS] buffer_um esta em %p e contem \'%s\'\n", buffer_um, buffer_um);
-	printf("[DEPOIS] buffer_um esta em %p e eh %d (0x%08x)\n", &value, value, value);
+	printf("[DEPOIS] valor esta em %p e eh %d (0x%08x)\n", &valor, valor, valor);
 }
