@@ -9,6 +9,7 @@
 
 - [Autopsy](https://www.autopsy.com/)
 - [FTK Imager](https://download.freedownloadmanager.org/Windows-PC/AccessData-FTK-Imager/FREE-3.4.0.5.html)
+- [JumpList Explorer](https://f001.backblazeb2.com/file/EricZimmermanTools/JumpListExplorer.zip)
 - [HxD](https://mh-nexus.de/en/hxd/)
 - [Wireshark](https://www.wireshark.org/)
 
