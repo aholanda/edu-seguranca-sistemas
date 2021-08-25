@@ -8,7 +8,7 @@
 ## Programas
 
 - [Autopsy](https://www.autopsy.com/)
-- [Eric Zimmerman's Tools](https://ericzimmerman.github.io/) (`JumpListExplorer`, `LECmd`, ...)
+- [Eric Zimmerman's Tools](https://ericzimmerman.github.io/) (`JumpListExplorer`, `LECmd`, `PECmd`, ...)
 - [FTK Imager](https://download.freedownloadmanager.org/Windows-PC/AccessData-FTK-Imager/FREE-3.4.0.5.html)
 - [HxD](https://mh-nexus.de/en/hxd/)
 - [Wireshark](https://www.wireshark.org/)
