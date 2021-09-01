@@ -4,6 +4,21 @@
 
 \frame{\maketitle}
 
+\begin{frame}[fragile]{Setup}
+
+  Instalar o \href{https://docs.microsoft.com/pt-br/windows/wsl/install-win10}{WSL} 
+  e abrir o terminal do Linux para executar os seguintes comandos:
+
+\begin{lstlisting}[language=bash,basicstyle=\scriptsize,numberstyle=\tiny\color{gray}]
+# Suponto que a distribuição escolhida tenha sido Ubuntu ou Debian.  
+sudo apt install git
+git clone https://github.com/prof-holanda/auditoria-seguranca-sistemas.git
+cd auditoria-seguranca-sistemas/scripts
+bash install.sh net
+\end{lstlisting}
+
+\end{frame}
+
 \begin{frame}{Referências}
 
    \begin{thebibliography}{10}
@@ -37,26 +52,7 @@
   \end{description}
 \end{frame}
 
-\begin{frame}{Ataques à Segurança}\small
-  \begin{description}[<+->]\setbeamercovered{transparent}
-  \item[Ataques passivos:] o objetivo é bisbilhotar ou monitorar as transmissões 
-    para obter informação.
-    \begin{description}[<+->]\setbeamercovered{transparent}
-    \item[Vazamento de conteúdo:] informações sensíveis em emails, arquivos 
-      ou outro meio ficam disponíveis sem a autorização do proprietário.
-    \item[Análise de tráfego:] captura das mensagens para observação.
-    \end{description}
-  \item[Ataques ativos:] envolvem alguma modificação do fluxo de dados 
-    ou criação de um fluxo falso.
-    \begin{description}
-    \item[Disfarce:] ocorre quando uma entidade finge ser outra.
-    \item[Modificação de mensagens:] parte da mensagem é alterada ou pacotes 
-      da mensagem são reordenados para produzir efeito não-autorizado.
-    \item[Negação de serviço:] impede o uso ou gerenciamento do sistema.
-    \end{description}
-  \end{description}
-\end{frame}
-
+\frame{\title{Serviços}\date{}\author{}\maketitle}
 
 \begin{frame}{Serviços de Segurança}
 
@@ -107,6 +103,27 @@
   \end{itemize}
   \end{frame}
 
+\frame{\title{Ataques}\date{}\author{}\maketitle}
+
+\begin{frame}{Ataques à Segurança}\small
+  \begin{description}[<+->]\setbeamercovered{transparent}
+  \item[Ataques passivos:] o objetivo é bisbilhotar ou monitorar as transmissões 
+    para obter informação.
+    \begin{description}[<+->]\setbeamercovered{transparent}
+    \item[Vazamento de conteúdo:] informações sensíveis em emails, arquivos 
+      ou outro meio ficam disponíveis sem a autorização do proprietário.
+    \item[Análise de tráfego:] captura das mensagens para observação.
+    \end{description}
+  \item[Ataques ativos:] envolvem alguma modificação do fluxo de dados 
+    ou criação de um fluxo falso.
+    \begin{description}
+    \item[Disfarce:] ocorre quando uma entidade finge ser outra, por exemplo {\it phishing}.
+    \item[Modificação de mensagens:] parte da mensagem é alterada ou pacotes 
+      da mensagem são reordenados para produzir efeito não-autorizado.
+    \item[Negação de serviço:] impede o uso ou gerenciamento do sistema.
+    \end{description}
+  \end{description}
+\end{frame}
 
   \begin{frame}{Queda de serviço}
     {\em  Denial of Service} (DoS), {\em Distributed Denial of Service} (DDoS)\\
@@ -142,6 +159,18 @@
       serviços da rede.
     \end{description}
   \end{frame}
+
+\begin{frame}[fragile]{Prática 1}{Ataque Passivo}
+  
+  O \href{https://nmap.org/}{\tt nmap} é uma ferramenta para fazer varredura em
+  um {\it host\/}. O exemplo a seguir mostra seu uso na interface de rede
+  {\it loopback\/}:
+  
+\begin{lstlisting}[language=bash]
+nmap localhost
+\end{lstlisting}
+  
+\end{frame}
 
 \begin{frame}[fragile]{Exercício 1}{DoS}
   {\color{red}$\dagger$~Vamos usar o {\tt hping3} para realizar o ataque {\em Smurf}:}
@@ -231,4 +260,205 @@ $ sudo iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
     \end{itemize}
   \end{frame}
 
-  
+\end{document}
+
+== Segurança em Rede de Computadores
+
+=== Ataques Passivos
+
+No ataque passivo, o atacante fica monitorando e bisbilhotando a rede,
+procurando por informações sensíveis provenientes de comunicações não
+criptografadas. A seguir, são apresentadas algumas ferramentas que são
+comumente utilizadas para este objetivo. É bom ressaltar que estas
+ferramentas não foram desenvolvidas para propiciar este tipo de
+ataque.
+
+==== `nmap`
+
+O https://nmap.org/[`nmap`] é uma ferramenta para fazer varredura em
+um _host_. O exemplo a seguir mostra seu uso na interface de rede
+_loopback_:
+
+[source]
+----
+$ nmap localhost
+
+Starting Nmap 7.01 ( https://nmap.org ) at 2016-09-02 09:17 BRT
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00014s latency).
+Not shown: 994 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+25/tcp  open  smtp
+80/tcp  open  http
+139/tcp open  netbios-ssn
+445/tcp open  microsoft-ds
+631/tcp open  ipp
+
+Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
+----
+
+A primeira coluna mostra as portas que estão abertas para comunicação
+segundo o protocolo TCP. A segunda coluna apresenta o estado de cada
+porta no momento da varredura. São seis os estados possíveis, listados
+a seguir:
+
+[cols="2"]
+|===
+|`open`
+|A porta está respondendo a uma conexão de entrada.
+
+|`closed`
+|O alvo responde à varredura, mas não há serviço aceitando conexão pela porta.
+
+|`filtered`
+|A porta está protegida por _firewall_, `nmap` não consegue descobrir se está aberta ou fechada.
+
+|`unfiltered`
+|`nmap` pode acessar, mas não consegue descobrir se está aberta ou fechada.
+
+|`open`\|`filtered`
+|`nmap` não consegue descobrir o estado exato, mas a porta parece estar aberta ou protegida por _firewall_.
+
+|`close`\|`filtered`
+|`nmap` não consegue descobrir o estado exato, mas a porta parece estar fechada ou protegida por _firewall_.
+|===
+
+Há várias formas de se utilizar o `nmap`, a seguir são mostradas algumas:
+
+[cols="2"]
+|===
+|Varredura de múltiplos alvos
+|`nmap 192.168.1.1 192.168.1.2 192.168.1.4`
+
+|Varredura de uma faixa de IPs
+|`nmap 192.168.1.1-100`
+
+|Varredura de uma sub-rede
+|`nmap 192.168.1.0/24`
+
+|Fornecer um arquivo contendo os IPs a serem varridos. No exemplo, `lista.txt` contem os IPs, um por linha.
+|`nmap -iL lista.txt`
+
+|Varredura de alvos aleatórios. No exemplo, 3 _hosts_ serão escolhidos.
+|`nmap -iR 3` 
+
+|Realização uma varredura agressiva.
+|`nmap -A 10.10.4.132`
+
+|Varredura usando protocolo IPv6.
+|`nmap -6 0:0:0:0:0:ffff:c0a8:101`
+
+|Varredura com detecção do sistema operacional.
+|`nmap -O 192.168.1.32`
+
+|Saída da varredura com mais informação.
+|`nmap -v 192.168.2.12`
+
+|Saída com _debug_.
+|`nmap -d 102.168.1.43`
+|===
+
+Uma boa referência de consulta é o livro http://goo.gl/QvgUa2["_Nmap_ 6 _Cookbook_"] escrito por Nicholas Marsh.
+
+==== `tcpdump`
+
+O http://www.tcpdump.org/[`tcpdump`] é ferramenta de análise de
+pacotes TCP/IP, que pode ser usada para monitorar tráfego de
+informações sensíveis. A seguir, são mostrados alguns exemplos de seu
+uso, lembrando que o usuário deve ter privilégios de admistrador para
+poder executá-lo:
+
+[cols="2"]
+|===
+
+|Uso básico.
+|`tcpdump -nS`
+
+|Uso básico com mais informação.
+|`tcpdump -nnvvS`
+
+|Saída com ainda mais informação.
+|`tcpdump -nnvvXS`
+
+|Restrição do tráfego baseada no IP.
+|`tcpdump host 192.168.1.178`
+
+|Seleciona o tráfego de uma rede para analizar.
+|`tcpdump net 192.168.1.0/24`
+
+|Seleciona os pacotes por protocolo.
+|`tcpdump icmp`
+
+|Seleciona os pacotes por porta.
+|`tcpdump port 80`
+
+|Seleciona os pacotes de acordo com a direção do fluxo e porta, onde `src` é a fonte do pacote e `dst` é o destino.
+|`tcpdump src port 80 and dst port 21`
+
+|Combinação de direção, porta e protocolo.
+|`tcpdump src port 1025 and tcp`
+
+|Especificação de uma faixa de portas.
+|`tcpdump portrange 21-23`
+
+|Filtro pelo tamanho do pacote. Podem ser usados palavras ou símbolos como `less`, `<`, `greater`, `>=`.
+|`tcpdump < 32`
+
+|Captura do tráfego da porta 80 para o arquivo `captura.txt`.
+|`tcpdump -s 1514 port 80 -w captura.txt`
+
+|Captura com exceção da porta 80.
+|`tcpdump not port 80`
+
+|Pacotes cuja fonte é o IP 192.168.1.23 e as portas de destino são 389 ou 636.
+|`tcpdump src 192.168.1.23 and (dst port 380 or 636)`
+
+|Mostra  todos os pacotes urgentes (URG).
+|tcpdump 'tcp[13] & 32!=0'
+
+|Mostra  todos os pacotes no estado ACK.
+|tcpdump 'tcp[13] & 16!=0'
+
+|Mostra pacotes no estado SYN.
+|tcpdump 'tcp[13] & 2!=0'
+
+|Mostra pacotes no estado FIN.
+|tcpdump 'tcp[13] & 1!=0'
+
+|Mostra pacotes no estado SYNACK.
+|tcpdump 'tcp[13]=18'
+|===
+
+A fonte do material apresentado foi o artigo
+https://danielmiessler.com/study/tcpdump/["A tcpdump Tutorial and
+Primer with Examples"] de Daniel Miessler.
+
+=== Ataques Ativos
+
+Os ataques ativos podem ser prevenidos da seguinte forma:
+
+* *Disfarce* (_phishing_): uma pessoa se passa por outra, utilizando
+senha, cartão, ou qualquer outro meio de indentificação que é obtido
+normalmente através de engenharia social ou _malware_. É difícil de
+ser prevenido via sistema, pois depende do entendimento da pessoa
+sobre segurança, para não repassar ou deixar disponível informação
+sensível.
+
+* *Modificação de mensagens*: Algumas regras podem ser colocadas no
+_firewall_ para prevenir que pacotes corrompidos sejam entregues.
+
+* *Negação de serviço*: Ataques de negação de serviços podem ser
+prevenidos através da configuração adequada do _firewall_.
+// TODO fazer ligação com o capítulo de firewall.
+
+////
+=== Serviços de segurança
+
+==== Autenticação
+
+==== Autorização
+
+==== Verificação de Integridade
+
+////
