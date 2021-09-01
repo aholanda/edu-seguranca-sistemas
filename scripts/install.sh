@@ -11,7 +11,7 @@ UPDATE="sudo apt update"
 UPGRADE="sudo apt upgrade -y"
 
 function install_core_packages {
-    pkgs="coreutils vim"
+    pkgs="coreutils emacs screen vim tmux"
     for pkg in ${pkgs}; do 
         $(test ${pkg}) && ${INSTALL} -y ${pkg}
     done
@@ -28,6 +28,9 @@ case $1 in
                 clang gcc tcc \
                 apache2 php \
                 postgresql php-pgsql
+                sed -i "s/;pdo_pgsql/pdo_pgsql/g" /etc/php/7.4/apache2/php.ini 
+                sed -i "s/;pgsql/pgsql/g" /etc/php/7.4/apache2/php.ini
+                sudo systemctl restart apache2
         ;;
     net)        
         ${UPDATE} && \
