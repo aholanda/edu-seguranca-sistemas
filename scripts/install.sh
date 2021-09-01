@@ -30,7 +30,7 @@ case $1 in
                 postgresql php-pgsql &&\
         sudo sed -i "s/;pdo_pgsql/pdo_pgsql/g" /etc/php/7.4/apache2/php.ini &&\
         sudo sed -i "s/;pgsql/pgsql/g" /etc/php/7.4/apache2/php.ini &&\
-        sudo systemctl restart apache2
+        sudo service restart apache2
         ;;
     net)        
         ${UPDATE} && \
