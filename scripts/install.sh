@@ -12,8 +12,8 @@ UPGRADE="sudo apt upgrade -y"
 
 function install_core_packages {
     pkgs="clang gcc tcc vim"
-    for pkg in pkgs; do 
-        $(test $pkg) && ${INSTALL} -y $pkg
+    for pkg in ${pkgs}; do 
+        $(test ${pkg}) && ${INSTALL} -y ${pkg}
     done
 }
 
