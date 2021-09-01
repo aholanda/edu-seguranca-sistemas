@@ -11,7 +11,7 @@ UPDATE="sudo apt update"
 UPGRADE="sudo apt upgrade -y"
 
 function install_core_packages {
-    pkgs="clang gcc tcc vim"
+    pkgs="coreutils vim"
     for pkg in ${pkgs}; do 
         $(test ${pkg}) && ${INSTALL} -y ${pkg}
     done
@@ -33,7 +33,6 @@ case $1 in
         ${UPDATE} && \
             ${INSTALL} \
                 hping3 \
-                md5sum \
                 nmap \
                 tcpdump 
         ;;
