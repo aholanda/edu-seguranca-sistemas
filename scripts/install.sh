@@ -28,6 +28,7 @@ case $1 in
                 clang gcc tcc \
                 apache2 php \
                 postgresql php-pgsql
+        ;;
     net)        
         ${UPDATE} && \
             ${INSTALL} \
