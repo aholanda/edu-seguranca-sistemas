@@ -7,7 +7,7 @@ case $1 in
     net)        
         sudo apt update && \
             sudo apt install \
-                hping \
+                hping3 \
                 tcpdump \
                 wireshark
         ;;
