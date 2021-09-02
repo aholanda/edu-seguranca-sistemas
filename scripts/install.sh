@@ -18,23 +18,19 @@ function install_core_packages {
 }
 
 function upgrade {
-    ${UPGRADE}
+    $UPDATE && ${UPGRADE}
 }
 
 DEV="clang gcc tcc apache2 php postgresql php-pgsql"
 case $1 in
     dev)
-        ${UPDATE} && ${INSTALL} ${DEV}
+        ${INSTALL} ${DEV}
         sudo sed -i "s/;pdo_pgsql/pdo_pgsql/g" /etc/php/7.4/apache2/php.ini
         sudo sed -i "s/;pgsql/pgsql/g" /etc/php/7.4/apache2/php.ini
         sudo service restart apache2
         ;;
     net)        
-        ${UPDATE} && \
-            ${INSTALL} \
-                hping3 \
-                nmap \
-                tcpdump 
+        ${INSTALL} hping3 nmap tcpdump 
         ;;
     *)
         echo "usage: $0 [dev|net]"
