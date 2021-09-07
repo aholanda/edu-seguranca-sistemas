@@ -8,6 +8,10 @@
   \documentclass[]{beamer}
 \fi
 
+% Themes
+\usetheme{Metropolis}
+
+% Setup
 \setbeamercovered{highly dynamic}
 \newcounter{saveenumi}% save counter on enumerate across frames
 \newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
@@ -112,6 +116,15 @@
 
 \def\course{Auditoria e Segurança de Sistemas}
 
+% Table of Contents
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
 \begin{document}
 % \date{11/8/2021}\input intro
 
@@ -119,13 +132,15 @@
 
 %\date{25/8/2021} auditoria em arquivos do Windows (Google Slides)
 
-\date{1/9/2021}\input net
+%\date{1/9/2021}\input net
+
+\date{8/9/2021}\input malware
 
 %\input wireless
 
 %\input vpn
 
-%\input malware
+
 
 \lstset{language=java,basicstyle=\scriptsize,keywordstyle=\color{green!50!black},
  backgroundcolor=\color{yellow!35!white}}
