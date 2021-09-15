@@ -11,7 +11,7 @@ UPDATE="sudo apt update"
 UPGRADE="sudo apt upgrade -y"
 
 function install_core_packages {
-    pkgs="coreutils emacs screen vim tmux"
+    pkgs="coreutils emacs logcheck logwatch screen snort vim tmux tripwire"
     for pkg in ${pkgs}; do 
         $(test ${pkg}) && ${INSTALL} -y ${pkg}
     done
