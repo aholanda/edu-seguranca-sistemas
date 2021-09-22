@@ -1,15 +1,30 @@
 \documentclass{article}
 
+\usepackage{enumerate}
+\usepackage{a4wide}
+\usepackage[]{polyglossia}
+\setmainlanguage{brazil}
+
 \title{Auditoria e Segurança de Sistemas}
 \author{Adriano J. Holanda}
+\date{\today}
 
-\def\exercise{}
+\newcounter{exno}
+\def\exercise{\bigskip\addtocounter{exno}{1}\noindent\arabic{exno})~}
+
+\let\IN\input
+\renewcommand\input[1]{\IN{#1}\setcounter{exno}{0}}
+\newcommand\CEE{{\sc C}}
 
 \begin{document}
 \maketitle
 
 \section*{Lista de exercícios}
 
-\input dev
+\input{intro.tex}
+\input{dev.tex}
+\input{auditoria.tex}
+\input{net.tex}
+\input{vpn.tex}
 
 \end{document}
