@@ -15,10 +15,13 @@ PANDOC_TEX_FLAGS := --pdf-engine xelatex -V colorlinks -V linkcolor=blue -V urlc
 main.pdf: main.aux
 	xelatex main.tex
 
-main.aux: main.tex intro.tex
+main.aux: main.tex intro.tex proxy.tex
 	xelatex $<
+
 crypto.tex: symmetric-cryto-model.png symmetric-key-encrypt.png \
 		public-key-encrypt.png
+
+proxy.tex: proxy-open.png proxy-reverse.png
 
 %.png: img/%.svg
 	inkscape --export-png=$@ $< 
