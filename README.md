@@ -6,7 +6,8 @@
 - [Segurança no Desenvolvimento de Sistemas](https://drive.google.com/file/d/1pcHaD-_fGyVcD9c3srtq0sixNGuN7RpH/view?usp=sharing);
 - [Segurança em Redes de Computadores](https://drive.google.com/file/d/1y6ji-y8HW_Tnwxi6VVo6tA-7PLeNHgTb/view?usp=sharing);
 - [Malware](https://drive.google.com/file/d/12sAyXmSzsTT8Ky5Q7yG6C2A545k5-5xM/view?usp=sharing);
-- [Detecção de Intrusão](https://drive.google.com/file/d/1fd0FBzAZa28WzKyEbIUprbyOaYMm3m9Y/view?usp=sharing).
+- [Detecção de Intrusão](https://drive.google.com/file/d/1fd0FBzAZa28WzKyEbIUprbyOaYMm3m9Y/view?usp=sharing);
+- [VPN e Proxy](https://drive.google.com/file/d/1BrCUFDlAmfBoxIYI3vMtMkqoPvPNAjKL/view?usp=sharing).
 
 ## Programas
 
