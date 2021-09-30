@@ -2,6 +2,8 @@
 title: Firewall
 author: Adriano J. Holanda
 date: 2021-10-06
+pdfengine: xelatex
+header-includes: \usepackage{graphicx}
 ---
 
 # Introdução
@@ -9,7 +11,11 @@ date: 2021-10-06
 Sistema que controla o tráfego de pacotes em uma rede de acordo com
 regras pré-definidas.
 
-![Esquema de um firewall. (Adaptado de https://commons.wikimedia.org/wiki/File:Firewall.png)](img/firewall.png){ width=60% }
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=.7]{img/firewall.png}
+\caption{Esquema de um firewall. (Adaptado de \url{https://commons.wikimedia.org/wiki/File:Firewall.png})}
+\end{figure}
 
 # Ferramentas
 
