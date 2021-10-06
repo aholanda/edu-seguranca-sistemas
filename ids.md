@@ -26,10 +26,10 @@ Um IDS (_Intrusion_ _Detection_ _System_) de rede usa placas de rede
 em modo promíscuo, analisando todos os pacotes em um ou mais segmentos
 da rede. Podemos dividir os IDSs de rede em 2 categorias:
     
-- *Detecção de assinatura*: assim como os antivírus, estes
+- **Detecção de assinatura**: assim como os antivírus, estes
       sistemas tentam comparar os padrões com um banco de dados de
-      "assinaturas de ataques". Exemplo: https://www.snort.org/[snort].
-- *Detecção de anomalia*: estes sistemas tentam detectar
+      "assinaturas de ataques". Exemplo: [snort](https://www.snort.org/).
+- **Detecção de anomalia**: estes sistemas tentam detectar
       anomalias de funcionamento da rede utilizando algumas
       heurísticas e estatística.
   
@@ -69,10 +69,10 @@ O arquivo `snort.conf` deve ser configurado com as regras de detecção.
     [SELinux](http://selinuxproject.org/page/Main_Page),
     [AppArmor](http://wiki.apparmor.net/index.php/Main_Page),
     [Oracle Solaris Zones](http://goo.gl/flbyDR).
-- *Verificadores de integridade*: verificam a integridade dos
+- **Verificadores de integridade**: verificam a integridade dos
     principais arquivos do sistema para detecção de
     alteração. Exemplo: [tripwire](http://www.tripwire.org/).
-- *Analisadores de logs*: monitoram os eventos dos serviços para
+- **Analisadores de logs**: monitoram os eventos dos serviços para
     detecção de anomalias de acordo com regras estabelecidas pelo
     administrador.  Exemplos:
     [logwatch](http://linux.die.net/man/8/logwatch),
@@ -122,8 +122,13 @@ não é usada somente para auditoria, como para verificação de
 compatibilidade da versão do navegador com os elementos da página
 requisitada, por exemplo.
 
-O `logcheck` é um utilitário para visualização dos _logs_ de diversos
-serviços. Para executar o `logcheck` em modo teste (`-t`), com a saída impressa na tela (`-o`):
+#### _logcheck_
+
+O [`logcheck`](https://logcheck.org/) 
+é um utilitário para visualização dos  _logs_ 
+de diversos serviços. 
+Para executar o `logcheck` em modo teste (`-t`), 
+com a saída impressa na tela (`-o`):
 
 
 ```{bash}
@@ -136,18 +141,24 @@ Para executar em modo _debug_ (`-d`):
 $ sudo -u logcheck logcheck -o -d
 ```
 
+#### _logwatch_
+
+O [`logwatch`](https://sourceforge.net/projects/logwatch/)
+é um analisador de registros (_logs_) do sistema.
 Para executar o `logwatch`:
 
 ```
-$ logwatch --detail High --mailto admin@example.edu --range today
+$ sudo logwatch --detail High --mailto admin@example.edu --range today
 ```
 
 Para alterar a configuração, basta adicionar um arquivo em 
 `/etc/logwatch/conf/`. Por exemplo, o arquivo a seguir 
 checa o espaço em disco e chamaremos de `zz-disk_space.conf`:
 
+
 ```
 # /etc/logwatch/conf/zz-disk_space.conf
+#--------------------------------------
 # Show the home directory sizes
 $show_home_dir_sizes = 1
 $home_dir = "/home"
