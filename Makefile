@@ -28,5 +28,5 @@ trash += *.png
 trash += *~ *.aux *.bbl *.blg *.dvi *.idx  *.log *.nav *.out main.pdf *.scn *.snm *.toc *.vrb
 
 clean:
-	$(RM) $(trash) $(DEV_NULL)
+	$(RM) *.pdf $(trash) $(DEV_NULL)
 	$(RM) $$null
