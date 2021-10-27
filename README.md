@@ -14,6 +14,7 @@
 - [Autopsy](https://www.autopsy.com/)
 - [Eric Zimmerman's Tools](https://ericzimmerman.github.io/) (`JumpListExplorer`, `LECmd`, `PECmd`, ...)
 - [FTK Imager](https://download.freedownloadmanager.org/Windows-PC/AccessData-FTK-Imager/FREE-3.4.0.5.html)
+- [GPG for Windows](https://www.gpg4win.org/);
 - [HxD](https://mh-nexus.de/en/hxd/)
 - [logcheck](https://logcheck.org/)
 - [logwatch](https://sourceforge.net/projects/logwatch/)
