@@ -1,6 +1,6 @@
 LATEX := xelatex
 imgs  := firewall.png
-texs  := firewall.tex
+texs  := $(wildcard *.tex)
 
 main.pdf: main.tex $(texs) $(imgs)
 	$(LATEX) $<
