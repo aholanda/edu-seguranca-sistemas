@@ -10,3 +10,6 @@ clean:
 		main.pdf main.snm main.toc
 
 .PHONY: clean
+
+# How to generate png from svg
+# inkscape --export-png=out.png in.svg
