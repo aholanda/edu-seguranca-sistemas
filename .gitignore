@@ -1,5 +1,5 @@
 # La(TeX)
-main.aux
+*.aux
 main.fls
 main.fdb_latexmk
 main.log
