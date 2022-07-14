@@ -11,13 +11,6 @@ main.toc
 main.vrb
 texput.log
 
-# imagens geradas
-proxy-open.png
-proxy-reverse.png
-public-key-encrypt.png
-symmetric-cryto-model.png
-symmetric-key-encrypt.png
-
 # temporary files
 gets*
 fgets*
