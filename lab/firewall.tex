@@ -1,176 +1,173 @@
-\lstset{language=bash}
+\lstset{style=mybash}
 
 \section*{Firewall}
 
-\subsection*{iptables}
+\rootwarn{firewall}{nftables}
 
-Antes de construir quaisquer regras, vamos apagar regras que já existam:
+\subsection*{nftables}
 
+Nas distribuições derivadas do Debian, o caminho do arquivo de de
+configuração é {\tt /etc/nftables.conf}. Para listar as tabelas
+existentes já configuradas neste arquivo, executamos o comando
 
 \begin{lstlisting}
-  sudo iptables -F
+sudo nft list tables
+\end{lstlisting}
+  
+\noindent cuja saída antes de qualquer configuração normalmente é
+
+\begin{lstlisting}
+sudo table inet filter
 \end{lstlisting}
 
-Para listar as regras existentes, teclamos
+Na tabela {\tt filter} da família {\tt inet} são adicionadas as regras
+para cada cadeia ({\em chain}). Executamos o comando
 
 \begin{lstlisting}
-    sudo iptables -L
- \end{lstlisting}
+sudo nft list table inet filter
+\end{lstlisting}
+
+\noindent para listar as regras de cada cadeia na tabela {\tt inet
+  filter}:
+
+\begin{lstlisting}
+table inet filter {
+        chain input {
+                type filter hook input priority filter; policy accept;
+        }
+
+        chain forward {
+                type filter hook forward priority filter; policy accept;
+        }
+
+        chain output {
+                type filter hook output priority filter; policy accept;
+        }
+}
+\end{lstlisting}
+
+A política padrão é {\tt accept}, ou seja, não há qualquer tipo de
+filtro para as cadeias de entrada {\tt input}, saída {\tt output} e
+repasse {\tt foward} de pacotes.
+
+Vamos alterar a política padrão para derrubar todos os pacotes nas 3
+cadeias:
+
+\begin{lstlisting}
+sudo nft add chain inet filter input '{ policy drop; }'
+sudo nft add chain inet filter forward '{ policy drop; }'
+sudo nft add chain inet filter output '{ policy drop; }'
+\end{lstlisting}
   
-Após a limpeza das regras, a listagem mostra
+Vamos testar a política padrão configurada que bloqueia qualquer
+entrada, saída ou repasse de pacotes de rede:
 
 \begin{lstlisting}
-    Chain INPUT (policy ACCEPT)
-    target     prot opt source               destination         
-
-    Chain FORWARD (policy ACCEPT)
-    target     prot opt source               destination         
-
-    Chain OUTPUT (policy ACCEPT)
-    target     prot opt source               destination
-  \end{lstlisting}
+ping -c 3 127.0.0.1
+\end{lstlisting}
   
-A política padrão é `ACCEPT`, ou seja, não há qualquer tipo de filtro
-para as cadeias de entrada `INPUT`, saída `OUTPUT` e repasse `FOWARD`
-de pacotes.
-
-Vamos alterar a política padrão para derrubar todos os pacotes nos 3
-canais:
+\noindent a saída mostra o bloqueio da interface {\it loopback\/}.
 
 \begin{lstlisting}
-    sudo iptables -P INPUT DROP
-    sudo iptables -P FORWARD DROP
-    sudo iptables -P OUTPUT DROP
-  \end{lstlisting}
+PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+
+--- 127.0.0.1 ping statistics ---
+18 packets transmitted, 0 received, 100% packet loss, time 17406ms
+\end{lstlisting}
   
-Quando executamos
+Supondo que vamos adotar uma política de filtragem bem restritiva,
+começamos a liberar o fluxo de pacotes nas interfaces e serviços de
+interesse. Vamos começar liberando o protocolo ICMP na entrada e
+saída:
 
 \begin{lstlisting}
-    ping -c 3 127.0.0.1
-  \end{lstlisting}
-  
-\noindent a saída mostra o bloqueio do loopback
-
-\begin{lstlisting}
-    ping: sendmsg: Operation not permitted
-    ping: sendmsg: Operation not permitted
-    ping: sendmsg: Operation not permitted
-  \end{lstlisting}
-  
-Vamos liberar o acesso ao *loopback*
-
-\begin{lstlisting}
-    sudo iptables -A INPUT -i lo -j ACCEPT
-    sudo iptables -A OUTPUT -o lo -j ACCEPT
-  \end{lstlisting}
+sudo nft add rule inet filter input ip protocol icmp accept  
+sudo nft add rule inet filter output ip protocol icmp accept
+\end{lstlisting}
   
 \noindent e repetir o ping
-
-\begin{lstlisting}
-    ping -c 3 127.0.0.1
-  \end{lstlisting}
   
 \noindent e obtemos algo parecido com
 
 \begin{lstlisting}
-    PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
-    64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.027 ms
-    64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.027 ms
-    64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.033 ms
+PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.022 ms
+64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.051 ms
+64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.035 ms
 
-    --- 127.0.0.1 ping statistics ---
-    3 packets transmitted, 3 received, 0% packet loss, time 1998ms
-    rtt min/avg/max/mdev = 0.027/0.029/0.033/0.003 ms
-  \end{lstlisting}
+--- 127.0.0.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2040ms
+rtt min/avg/max/mdev = 0.022/0.036/0.051/0.011 ms
+\end{lstlisting}
   
-Porém, não conseguimos enviar o ping para fora do firewall, pois
+Porém, não conseguimos enviar o ping para fora do firewall usando o nome
+do host, apenas o IP:
 
 \begin{lstlisting}
-    ping -c 3 google.com
-  \end{lstlisting}
+ping -c 3 google.com
+\end{lstlisting}
   
 \noindent mostra que o acesso ao servidor de DNS (porta 53) está bloqueado, 
 vamos liberar a porta 53
 
 \begin{lstlisting}
-    sudo iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
-    sudo iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
-  \end{lstlisting}
+sudo nft add rule inet filter output udp dport 53 accept
+sudo nft add rule inet filter output tcp dport 53 accept
+\end{lstlisting}
   
 e executar novamente
 
 \begin{lstlisting}
-    ping -c 3 google.com
-  \end{lstlisting}
-  
-\noindent cuja saída mostra que os pacotes `ICMP` continuam bloqueados
-
-\begin{lstlisting}
-    PING google.com (XXX.XXX.XXX.XXX) 56(84) bytes of data.
-    ping: sendmsg: Operation not permitted
-    ping: sendmsg: Operation not permitted
-    ping: sendmsg: Operation not permitted
-
-    --- google.com ping statistics ---
-    3 packets transmitted, 0 received, 100% packet loss, time 1999ms
-  \end{lstlisting}
-  
-Vamos liberar o ping de dentro para fora do firewall
-
-
-\begin{lstlisting}
-    sudo iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
-    sudo iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+ping -c 3 google.com
 \end{lstlisting}
+  
+\noindent cuja saída mostra que os pacotes {\tt ICMP} continuam
+bloqueados, pois devemos liberar as portas que são usadas pela
+resposta do {\tt ping}, então estabelecemos uma regra de que para
+comexões estabelecidas, as portas sejam liberadas.
 
+\begin{lstlisting}
+sudo nft add rule inet filter input ct state established,related counter accept  
+sudo nft add rule inet filter output ct state established,related counter accept
+\end{lstlisting}
+  
 \noindent e novamente
 
 \begin{lstlisting}
-    ping -c 3 holanda.xyz
+ping -c 3 google.com
 \end{lstlisting}
 
 \noindent obtemos
 
-
 \begin{lstlisting}
-Disparando google.com [XXX:XXXX:XXXX:XXX::XXXX] com 32 bytes de dados:
-   
-Resposta de XXX:XXXX:XXXX:XXX::XXXX: tempo=11ms 
-Resposta de XXX:XXXX:XXXX:XXX::XXXX: tempo=9ms 
-Resposta de XXX:XXXX:XXXX:XXX::XXXX: tempo=10ms 
-Resposta de XXX:XXXX:XXXX:XXX::XXXX: tempo=11ms 
+PING google.com (xxx.xxx.xxx.xxx) 56(84) bytes of data.
+64 bytes from gruxxx.net (xxx.xxx.xxx.xxx): icmp_seq=1 ttl=117 time=8
+.56 ms
+64 bytes from gruxxx.net (xxx.xxx.xxx.xxx): icmp_seq=2 ttl=117 time=8
+.48 ms
+64 bytes from gruxxx.net (xxx.xxx.xxx.xxx): icmp_seq=3 ttl=117 time=8
+.52 ms
 
-
-Estatísticas do Ping para XXX:XXXX:XXXX:XXX::XXXX:
-    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de
-             perda),
-Aproximar um número redondo de vezes em milissegundos:
-    Mínimo = 9ms, Máximo = 11ms, Média = 10ms
+--- google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 8.483/8.520/8.559/0.031 ms
 \end{lstlisting}
 
-\noindent mostando que o ICMP agora está liberado.
+\noindent mostando que o ICMP e DNS (saída) agora estão em operação.
 
-
-Porém ainda não conseguimos navegar na web, vamos liberar a porta `HTTP` (80) 
- e `HTTPS` (443)
-
+Porém ainda não conseguimos navegar na web, vamos liberar as portas
+HTTP (80) e HTTPS (443) na cadeia de saída:
 
 \begin{lstlisting}
-    sudo iptables -A OUTPUT -p tcp -o eth0 --dport 80 -j ACCEPT
-    sudo iptables -A INPUT -p tcp -i eth0 --sport 80 -j ACCEPT
-    sudo iptables -A OUTPUT -p tcp -o eth0 --dport 443 -j ACCEPT
-    sudo iptables -A INPUT -p tcp -i eth0 --sport 443 -j ACCEPT
+sudo nft add rule inet filter output tcp dport '{80,443}' accept
 \end{lstlisting}
 
 \subsection*{Exercícios}
 \begin{enumerate}
-\item Qual o significado dos argumentos {\tt NEW}, {\tt ESTABLISHED} e
-{\tt RELATED} para a {\em flag} {\tt -state} na seguinte regra:
+\item Qual a configuração do {\tt nftables} para liberar a comunicação
+  de um servidor {\tt ssh}?
 
-\begin{lstlisting}
-sudo iptables --append OUTPUT -m state \
-  --state NEW,ESTABLISHED,RELATED -j ACCEPT
-\end{lstlisting}
-
-\item Escreva uma regra que libere a comunicação via usando {\tt ssh} (porta 22).
+\item Supondo que queiramos instalar um servidor de emails
+  em nosso host, liste as regras para liberar as portas
+  dos protocolos SMTP e IMAP.
 \end{enumerate}
