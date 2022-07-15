@@ -1,10 +1,38 @@
 \documentclass[a4paper]{article}
 
-\usepackage{listings}
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{bookmark}
+\usepackage{listings}
+
+% Define a custom color
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+
+% Define a custom bash style
+\lstdefinestyle{mybash}{
+  language=bash,
+  frame=single,
+  backgroundcolor=\color{lightgray},
+  commentstyle=\color{codegreen},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  keepspaces=true,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+}
+
+\newcommand{\rootwarn}[2]{
+Vamos checar alguns comandos essenciais para configuração de um
+#1 usando o programa {\tt #2}. Para executar os comandos é
+necessário estar conectado como usuário {\tt root} ou usar o comando
+{\tt sudo} como prefixo das linhas de comando listadas.}
+
 
 \begin{document}
 \include{firewall}
