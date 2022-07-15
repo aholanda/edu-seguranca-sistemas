@@ -1,5 +1,4 @@
 
-
 \begin{frame}{Introdução}
   
 Sistema que controla o tráfego de pacotes em uma rede de acordo com
@@ -17,7 +16,7 @@ regras pré-definidas.
 \begin{frame}{Ferramentas}
 
   Nos sistemas Linux o firewall normalmente utilizado é o
-  \href{http://www.netfilter.org/projects/iptables/}{iptables}, e nos
+  \href{http://www.netfilter.org/projects/nftables/}{nftables}, e nos
   sistemas BSD, o \href{http://www.openbsd.org/faq/pf/}{pf} ({\em packet
     filter}).
 
@@ -34,5 +33,25 @@ regras pré-definidas.
 \item Porta de destino;
 \item Protocolo IP (TCP ou UDP).
 \end{itemize}
+\end{frame}
 
+\begin{frame}{nftables}
+\end{frame}
+\begin{frame}{Cadeias}{{\it chains\/}}
+\begin{tikzpicture}[node distance=2.5cm,main/.style = {draw}] 
+  \node[] (ingoing) {entrada};
+  \node[] (routing) [right of=ingoing] {roteamento};
+  \draw[] (ingoing) -- (routing);
+  \node[draw] (forward) [right of=routing] {\bf forward};
+  \draw[->] (routing) -- (forward);
+  \node[draw] (input) [below of=routing] {\bf input};
+  \draw[->] (routing) -- (input);
+  \node[draw,ellipse] (process) [below right of=input] {processos locais};
+  \draw[->] (input) -- (process);
+  \node[draw] (output) [above right of=process] {\bf output};
+  \draw[->] (process) -- (output);  
+  \node[] (outgoing) [right of=forward] {saída};
+  \draw[->] (forward) -- (outgoing);
+  \draw[->] (output) -- (outgoing);  
+\end{tikzpicture} 
 \end{frame}
